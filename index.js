@@ -7,12 +7,11 @@ const morgan = require("morgan");
 const url = require("url");
 const app = express();
 
-const msg = [];
-
 const generateFakeData = ({ gen }) => {
+  data = [];
   var len = gen;
   while (len--) {
-    msg.push({
+    data.push({
       col1: faker.name.firstName(),
       col2: faker.name.lastName(),
       col3: faker.phone.number(),
@@ -21,6 +20,7 @@ const generateFakeData = ({ gen }) => {
       col6: faker.address.state(),
     });
   }
+  return data;
 };
 
 app.use(helmet());
@@ -31,8 +31,8 @@ app.use(morgan("combined"));
 app.get("/api/fakedata/", (req, res) => {
   const queryObject = url.parse(req.url, true).query;
   const gen = queryObject.gen;
-  generateFakeData({ gen });
-  res.send(msg);
+  const data = generateFakeData({ gen });
+  res.send(data);
 });
 
 // starting the server
