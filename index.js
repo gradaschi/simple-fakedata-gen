@@ -9,15 +9,15 @@ const app = express();
 
 const generateFakeData = ({ gen }) => {
   data = [];
-  var len = gen;
-  while (len--) {
+  for (let i = 1; i <= gen; i++) {
     data.push({
+      id: i,
       col1: faker.name.firstName(),
       col2: faker.name.lastName(),
-      col3: faker.phone.number(),
-      col4: faker.address.streetAddress(),
-      col5: faker.address.city(),
-      col6: faker.address.state(),
+      col3: faker.address.city(),
+      col4: faker.address.state(),
+      col5: faker.address.country(),
+      col6: faker.address.zipCode(),
     });
   }
   return data;
